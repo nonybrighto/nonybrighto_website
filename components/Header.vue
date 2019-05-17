@@ -61,7 +61,12 @@
     </v-layout> -->
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar :clipped-left="clipped" fixed app class="hidden-md-and-up">
+    <v-toolbar
+      v-if="$vuetify.breakpoint.smAndDown"
+      :clipped-left="clipped"
+      fixed
+      app
+    >
       <v-toolbar-side-icon @click="drawer = !drawer" />
       <v-toolbar-title v-text="title" />
       <v-spacer />

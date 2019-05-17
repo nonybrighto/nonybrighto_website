@@ -1,70 +1,132 @@
 <template>
-  <v-layout column justify-center align-center>
-    <v-flex xs12 sm8 md6>
-      <div class="text-xs-center">
-        <logo />
-        <vuetify-logo />
-      </div>
-      <v-card>
-        <v-card-title class="headline"
-          >Welcome to the Vuetify + Nuxt.js template</v-card-title
+  <v-layout column>
+    <v-parallax
+      dark
+      src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg"
+      :height="$vuetify.breakpoint.xs ? 340 : 500"
+    >
+      <v-layout align-center column justify-center class="pt-5">
+        <h1
+          class="display-3 font-weight-bold mb-3"
+          :class="{ 'display-1': $vuetify.breakpoint.xs }"
         >
-        <v-card-text>
-          <p>
-            Vuetify is a progressive Material Design component framework for
-            Vue.js. It was designed to empower developers to create amazing
-            applications.
+          NONYBRIGHTO
+        </h1>
+        <div class="limit">
+          <p class="subheading text-xs-center">
+            A fullstack developer! Flutter Lover. Angular, Electron Developer.
+            Java Developer. JavaFX A fullstack developer! Flutter Lover.
+            Angular, Electron Developer. Java Developer. JavaFX
           </p>
-          <p>
-            For more information on Vuetify, check out the
-            <a href="https://vuetifyjs.com" target="_blank">documentation</a>.
-          </p>
-          <p>
-            If you have questions, please join the official
-            <a href="https://chat.vuetifyjs.com/" target="_blank" title="chat"
-              >discord</a
-            >.
-          </p>
-          <p>
-            Find a bug? Report it on the github
-            <a
-              href="https://github.com/vuetifyjs/vuetify/issues"
-              target="_blank"
-              title="contribute"
-              >issue board</a
-            >.
-          </p>
-          <p>
-            Thank you for developing with Vuetify and I look forward to bringing
-            more exciting features in the future.
-          </p>
-          <div class="text-xs-right">
-            <em><small>&mdash; John Leider</small></em>
-          </div>
-          <hr class="my-3" />
-          <a href="https://nuxtjs.org/" target="_blank">Nuxt Documentation</a>
-          <br />
-          <a href="https://github.com/nuxt/nuxt.js" target="_blank"
-            >Nuxt GitHub</a
-          >
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn color="primary" flat nuxt to="/inspire">Continue</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-flex>
+        </div>
+        <v-hover>
+          <v-btn slot-scope="{ hover }" color="primary"
+            >HIRE ME
+            <v-icon right dark>{{
+              hover ? 'sentiment_very_satisfied' : 'arrow_forward'
+            }}</v-icon>
+          </v-btn>
+        </v-hover>
+      </v-layout>
+    </v-parallax>
+
+    <v-layout column align-center>
+      <h1>Specialization</h1>
+      <p class="limit text-xs-center">
+        Specialization of the stufss
+      </p>
+    </v-layout>
+    <v-layout row wrap>
+      <v-flex v-for="(work, index) in works" :key="index" xs12 md4>
+        <Work :work="work" />
+      </v-flex>
+    </v-layout>
+    <v-layout column align-center>
+      <h1>Recent Projects</h1>
+      <p class="limit text-xs-center">
+        Here are some amazing projects recently completed by me. Had a great
+        time working on them. Every project is a learning experience for
+        something more amazing to come :-)
+      </p>
+    </v-layout>
+    <HomeProjectBox
+      v-for="(project, index) in recentProjects"
+      :key="project.id"
+      :project="project"
+      :left="index % 2 == 0 ? false : true"
+    />
   </v-layout>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
-import VuetifyLogo from '~/components/VuetifyLogo.vue'
-
+import HomeProjectBox from '~/components/HomeProjectBox'
+import Work from '~/components/Work'
 export default {
   components: {
-    Logo,
-    VuetifyLogo
+    HomeProjectBox,
+    Work
+  },
+  data() {
+    return {
+      height: 500,
+      recentProjects: [
+        {
+          id: '1',
+          name: 'Project name',
+          description: 'THis is a very short descrition of the project',
+          iconImagePath: '../../assets/images/image.png',
+          sourceLink: '',
+          imagePaths: [''],
+          tags: ['']
+        },
+        {
+          id: '2',
+          name: 'Project name',
+          description: 'THis is a very short descrition of the project',
+          iconImagePath: '/assets/images/image.png',
+          sourceLink: 'no link',
+          imagePaths: [''],
+          tags: ['']
+        },
+        {
+          id: '1',
+          name: 'Project name',
+          description: 'THis is a very short descrition of the project',
+          iconImagePath: '../../assets/images/image.png',
+          sourceLink: '',
+          imagePaths: [''],
+          tags: ['']
+        }
+      ],
+      works: [
+        {
+          icon: 'account_circle',
+          title: 'Web Design',
+          description:
+            'descripEnim consequatur non autem est sapiente velit numquam asperiores cum.'
+        },
+        {
+          icon: 'account_circle',
+          title: 'Mobile Application',
+          description:
+            'descripEnim consequatur non autem est sapiente velit numquam asperiores cum.'
+        },
+        {
+          icon: 'account_circle',
+          title: 'Desktop Application',
+          description:
+            'descripEnim consequatur non autem est sapiente velit numquam asperiores cum.'
+        }
+      ]
+    }
+    // components: {
+    // }
   }
 }
 </script>
+
+<style scoped>
+.limit {
+  max-width: 500px;
+}
+</style>
