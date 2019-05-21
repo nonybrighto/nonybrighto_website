@@ -161,7 +161,7 @@ export default {
       return this.isHydrated ? this.$vuetify.breakpoint.smAndDown : false
     },
     permanentDrawer() {
-      return this.isHydrated ? this.$vuetify.breakpoint.smAndUp : false
+      return this.isHydrated ? this.$vuetify.breakpoint.mdAndUp : false
     }
   },
   mounted() {
