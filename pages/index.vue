@@ -89,7 +89,7 @@ export default {
           tags: ['']
         },
         {
-          id: '1',
+          id: '3',
           name: 'Project name',
           description: 'THis is a very short descrition of the project',
           iconImagePath: '../../assets/images/image.png',
