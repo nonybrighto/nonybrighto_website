@@ -3,7 +3,7 @@
     <v-navigation-drawer
       v-model="drawer"
       :clipped="clipped"
-      :permanent="$vuetify.breakpoint.mdAndUp"
+      :permanent="permanentDrawer"
       fixed
       app
       :mini-variant="mini"
@@ -61,12 +61,7 @@
     </v-layout> -->
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar
-      v-if="$vuetify.breakpoint.smAndDown"
-      :clipped-left="clipped"
-      fixed
-      app
-    >
+    <v-toolbar v-if="showBar" :clipped-left="clipped" fixed app>
       <v-toolbar-side-icon @click="drawer = !drawer" />
       <v-toolbar-title v-text="title" />
       <v-spacer />
@@ -82,7 +77,8 @@ export default {
       drawer: null,
       fixed: true,
       title: 'nonybrighto.com',
-      mini: this.$vuetify.breakpoint.mdOnly,
+      mini: false,
+      isHydrated: false,
       items: [
         {
           icon: 'apps',
@@ -159,6 +155,18 @@ export default {
         ]
       }
     }
+  },
+  computed: {
+    showBar() {
+      return this.isHydrated ? this.$vuetify.breakpoint.smAndDown : false
+    },
+    permanentDrawer() {
+      return this.isHydrated ? this.$vuetify.breakpoint.smAndUp : false
+    }
+  },
+  mounted() {
+    this.isHydrated = true
+    this.mini = this.$vuetify.breakpoint.mdOnly
   }
 }
 </script>
