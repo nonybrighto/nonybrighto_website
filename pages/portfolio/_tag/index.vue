@@ -66,10 +66,6 @@ export default {
           name: 'css'
         },
         {
-          id: 'web',
-          name: 'css'
-        },
-        {
           id: 'html',
           name: 'html'
         },
