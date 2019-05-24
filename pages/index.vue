@@ -50,7 +50,7 @@
       </p>
     </v-layout>
     <HomeProjectBox
-      v-for="(project, index) in recentProjects"
+      v-for="(project, index) in homeProjects"
       :key="project.id"
       :project="project"
       :left="index % 2 == 0 ? false : true"
@@ -61,6 +61,8 @@
 <script>
 import HomeProjectBox from '~/components/HomeProjectBox'
 import Work from '~/components/Work'
+import { mapState } from 'vuex'
+
 export default {
   components: {
     HomeProjectBox,
@@ -69,35 +71,6 @@ export default {
   data() {
     return {
       height: 500,
-      recentProjects: [
-        {
-          id: '1',
-          name: 'Project name',
-          description: 'THis is a very short descrition of the project',
-          iconImagePath: '../../assets/images/image.png',
-          sourceLink: '',
-          imagePaths: [''],
-          tags: ['']
-        },
-        {
-          id: '2',
-          name: 'Project name',
-          description: 'THis is a very short descrition of the project',
-          iconImagePath: '/assets/images/image.png',
-          sourceLink: 'no link',
-          imagePaths: [''],
-          tags: ['']
-        },
-        {
-          id: '3',
-          name: 'Project name',
-          description: 'THis is a very short descrition of the project',
-          iconImagePath: '../../assets/images/image.png',
-          sourceLink: '',
-          imagePaths: [''],
-          tags: ['']
-        }
-      ],
       works: [
         {
           icon: 'account_circle',
@@ -119,8 +92,14 @@ export default {
         }
       ]
     }
-    // components: {
-    // }
+  },
+  computed: {
+    ...mapState({
+      homeProjects: state => state.projects.homeProjects
+    })
+  },
+  fetch({ store }) {
+    return store.dispatch('projects/getHomeProjects')
   }
 }
 </script>

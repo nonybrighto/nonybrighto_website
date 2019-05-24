@@ -5,18 +5,24 @@
     <v-layout row>
       <v-chip
         v-for="platform in platforms"
-        :key="platform.id"
+        :key="platform.name"
         :color="platform.color"
         text-color="white"
+        @click="getProjectByTag(platform.name)"
       >
         <v-avatar>
           <v-icon>{{ platform.icon }}</v-icon>
         </v-avatar>
-        {{ platform.name }}
+        {{ platform.name | capitalize }}
       </v-chip>
     </v-layout>
     <v-layout row wrap>
-      <v-chip v-for="tag in tags" :key="tag.id" text-color="white">
+      <v-chip
+        v-for="tag in tags"
+        :key="tag.id"
+        text-color="white"
+        @click="getProjectByTag(tag.name)"
+      >
         {{ tag.name }}
       </v-chip>
     </v-layout>
@@ -32,6 +38,7 @@
 
 <script>
 import Project from '~/components/Project.vue'
+import { mapState } from 'vuex'
 export default {
   components: {
     Project
@@ -41,104 +48,52 @@ export default {
       happy: true,
       platforms: [
         {
-          id: 'web',
-          name: 'Web',
+          name: 'web',
           icon: 'account_circle',
           color: 'pink'
         },
         {
-          id: 'mobile',
-          name: 'Mobile',
+          name: 'mobile',
           icon: 'account_circle',
           color: 'purple'
         },
         {
-          id: 'desktop',
-          name: 'Desktop',
+          name: 'desktop',
           icon: 'account_circle',
           color: 'blue'
         }
-      ],
-
-      tags: [
-        {
-          id: 'web',
-          name: 'css'
-        },
-        {
-          id: 'html',
-          name: 'html'
-        },
-        {
-          id: 'flutter',
-          name: 'flutter'
-        },
-        {
-          id: 'javaFX',
-          name: 'javaFX'
-        },
-        {
-          id: 'electron',
-          name: 'electron'
-        },
-        {
-          id: 'unity',
-          name: 'unity'
-        },
-        {
-          id: 'vue',
-          name: 'vue'
-        }
-      ],
-
-      projects: [
-        {
-          id: '1',
-          name: 'Project name',
-          description: 'THis is a very short descrition of the project',
-          iconImagePath: '../../assets/images/image.png',
-          sourceLink: '',
-          imagePaths: [''],
-          tags: ['']
-        },
-        {
-          id: '2',
-          name: 'Project name',
-          description: 'THis is a very short descrition of the project',
-          iconImagePath: '/assets/images/image.png',
-          sourceLink: 'no link',
-          imagePaths: [''],
-          tags: ['']
-        },
-        {
-          id: '3',
-          name: 'Project name',
-          description: 'THis is a very short descrition of the project',
-          iconImagePath: '/assets/images/image.png',
-          sourceLink: '',
-          imagePaths: [''],
-          tags: ['']
-        },
-        {
-          id: '4',
-          name: 'Project name',
-          description: 'THis is a very short descrition of the project',
-          iconImagePath: '~/images/image.png',
-          sourceLink: '',
-          imagePaths: [''],
-          tags: ['']
-        },
-        {
-          id: '5',
-          name: 'Project name',
-          description: 'THis is a very short descrition of the project',
-          iconImagePath:
-            'https://www.gettyimages.co.uk/gi-resources/images/RoyaltyFree/Apr17Update/ColourSurge1.jpg',
-          sourceLink: '',
-          imagePaths: [''],
-          tags: ['']
-        }
       ]
+    }
+  },
+  computed: {
+    ...mapState({
+      tags: state => state.projects.tags
+    }),
+    currentTag() {
+      return this.$router.params.tag
+    },
+    projects() {
+      const tag = this.$route.params.tag
+      if (tag) {
+        return this.$store.getters['projects/getProjectsByTag'](tag)
+      }
+      return this.$store.getters['projects/getRecentProjects']
+    }
+  },
+  fetch({ store }) {
+    return Promise.all([
+      store.dispatch('projects/getProjects'),
+      store.dispatch('projects/getTags')
+    ])
+  },
+  methods: {
+    getProjectByTag: function(tag) {
+      // eslint-disable-next-line no-console
+      // console.log('The tag to get is ' + tag)
+      // // eslint-disable-next-line no-console
+      // console.log(this.$store.getters['projects/getProjectsByTag'](tag))
+      // this.projects = this.$store.getters['projects/getProjectsByTag'](tag)
+      this.$router.push('/portfolio/' + tag)
     }
   }
 }

@@ -11,31 +11,27 @@
     }"
   >
     <v-flex xs12 sm6 :order-sm1="left">
-      <v-img
-        :src="require('~/assets/images/image.png')"
-        style="width:100%,height:auto"
-      ></v-img>
+      <v-img :src="project.iconImageUrl" style="width:100%,height:auto"></v-img>
     </v-flex>
     <v-flex xs12 sm6 class="pa-2">
       <v-layout column justify-center align-center>
         <h2 :class="{ 'display-1': $vuetify.breakpoint.mdAndUp }">
-          The Project title
+          {{ project.name }}
         </h2>
         <p class="text-xs-center">
-          The description of the project Reprehenderit animi sunt ut molestias.
-          Eius eum ex aspernatur sapiente inventore necessitatibus. Similique
-          reprehenderit quis consequuntur eum sit nemo reiciendis. Modi
-          doloremque id aut reiciendis eum delectus non placeat eos. Delectus
-          sint suscipit illum accusamus et.
+          {{ project.description }}
         </p>
         <div>
-          <v-btn flat color="primary">VIEW PROJECT</v-btn>
+          <v-btn flat color="primary" :to="'/projects/' + nameSlug"
+            >VIEW PROJECT</v-btn
+          >
         </div>
       </v-layout>
     </v-flex>
   </v-layout>
 </template>
 <script>
+import { slugify } from '../helpers/string-helper'
 export default {
   props: {
     project: {
@@ -45,6 +41,11 @@ export default {
     left: {
       type: Boolean,
       default: true
+    }
+  },
+  computed: {
+    nameSlug() {
+      return slugify(this.project.name)
     }
   }
 }
