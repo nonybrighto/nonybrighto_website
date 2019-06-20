@@ -2,19 +2,24 @@
   <v-hover>
     <v-card
       slot-scope="{ hover }"
-      :class="`elevation-${hover ? 12 : 2}`"
+      color="rgb(43, 9, 47)"
+      :class="`elevation-${hover ? 24 : 12}`"
       class="ma-1"
       style="cursor:pointer"
       @click.native="$router.push('/projects/' + nameSlug)"
     >
       <v-img :src="project.iconImageUrl" height="260px"></v-img>
       <v-card-title>
-        <div>{{ project.name }}</div>
-        <div class="grey--text">{{ project.description }}</div>
+        <!-- <p>{{ project.name }}</p>
+        <p class="grey--text">{{ project.description }}</p> -->
+        <div>
+          <h3 class="mb-0">{{ project.name }}</h3>
+          <div class="grey--text">{{ project.description }}</div>
+        </div>
       </v-card-title>
       <v-divider light></v-divider>
       <v-card-actions class="pa-3">
-        <v-chip color="blue">{{ projectPlatform }}</v-chip>
+        <v-chip color="rgb(68, 37, 98)">{{ projectPlatform }}</v-chip>
         <v-spacer></v-spacer>
         <div>
           <v-btn

@@ -1,7 +1,6 @@
 <template>
   <v-layout column align-center>
-    <h2>Portfolio</h2>
-    <p>These are the projects that have been worked on recently</p>
+    <PageHeader title="Portfolio" />
     <v-layout row>
       <v-chip
         v-for="platform in platforms"
@@ -27,21 +26,32 @@
       </v-chip>
     </v-layout>
     <v-container fluid>
-      <v-layout row wrap>
+      <v-layout v-if="hasProject()" row wrap>
         <v-flex v-for="project in projects" :key="project.id" xs12 sm6 md4>
           <Project :project="project" />
         </v-flex>
+      </v-layout>
+      <v-layout
+        v-else
+        column
+        align-center
+        justify-center
+        class="mt-4 subheading text-xs-center font-italic"
+      >
+        <span>There is no Project to view here at the moment</span>
       </v-layout>
     </v-container>
   </v-layout>
 </template>
 
 <script>
-import Project from '~/components/Project.vue'
+import Project from '~/components/Project'
+import PageHeader from '~/components/PageHeader'
 import { mapState } from 'vuex'
 export default {
   components: {
-    Project
+    Project,
+    PageHeader
   },
   data() {
     return {
@@ -94,6 +104,9 @@ export default {
       // console.log(this.$store.getters['projects/getProjectsByTag'](tag))
       // this.projects = this.$store.getters['projects/getProjectsByTag'](tag)
       this.$router.push('/portfolio/' + tag)
+    },
+    hasProject() {
+      return this.projects.length > 0
     }
   }
 }

@@ -1,6 +1,7 @@
 <template>
   <v-container>
-    <v-layout v-if="notes" column>
+    <PageHeader title="Notes" />
+    <v-layout v-if="hasNotes()" column>
       <v-timeline align-top :dense="dense">
         <v-timeline-item
           v-for="(note, i) in notes"
@@ -19,14 +20,28 @@
         </v-timeline-item>
       </v-timeline>
     </v-layout>
-    <v-layout v-if="loading">
-      <span> Loading ...... </span>
+    <v-layout
+      v-if="loading"
+      column
+      align-center
+      justify-center
+      class="mt-4 subheading text-xs-center font-italic"
+    >
+      <v-progress-circular
+        indeterminate
+        :color="$vuetify.theme.primary"
+      ></v-progress-circular>
     </v-layout>
   </v-container>
 </template>
 <script>
 import { mapState } from 'vuex'
+import PageHeader from '~/components/PageHeader'
+
 export default {
+  components: {
+    PageHeader
+  },
   data() {
     return {
       isHydrated: false,
@@ -55,6 +70,10 @@ export default {
     },
     getTagIcon: function(tag) {
       return 'account_circle'
+    },
+
+    hasNotes() {
+      return this.notes.length > 0
     }
   }
 }

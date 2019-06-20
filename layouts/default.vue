@@ -1,5 +1,5 @@
 <template>
-  <v-app dark>
+  <v-app class="app" dark>
     <Header />
     <v-content>
       <nuxt />
@@ -18,3 +18,13 @@ export default {
   }
 }
 </script>
+<style>
+.theme--dark.application {
+  background: linear-gradient(to bottom right, #181229, rgb(41, 3, 37));
+  color: #fff;
+}
+
+.theme--dark.v-navigation-drawer {
+  background: linear-gradient(to bottom right, #181229, rgb(41, 3, 37));
+}
+</style>

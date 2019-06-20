@@ -19,4 +19,7 @@ $ npm start
 $ npm run generate
 ```
 
+## Reference
+http://caferati.me/
+
 For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).

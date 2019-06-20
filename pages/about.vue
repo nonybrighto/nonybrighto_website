@@ -1,5 +1,6 @@
 <template>
   <v-container>
+    <PageHeader title="About" />
     <v-layout row wrap align-center>
       <v-flex
         text-xs-center
@@ -11,16 +12,22 @@
           <div class="light">
             <div class="thick">
               <v-avatar color="indigo" size="200px">
-                <v-icon dark>account_circle</v-icon>
+                <img
+                  :src="require('~/assets/images/about_image.jpg')"
+                  alt="nonybrighto"
+                />
               </v-avatar>
             </div>
           </div>
           <h2>NONYBRIGHTO</h2>
-          <h4>FULLSTACK WEB DEVELOPER</h4>
+          <h4>FULLSTACK DEVELOPER</h4>
         </v-layout>
       </v-flex>
       <v-flex xs12 md6 class="pl-3">
-        <h4><v-icon dark size="medium">account_circle</v-icon> Profile</h4>
+        <h3>
+          <v-icon dark size="medium" class="pb-1">fa fa-user-circle</v-icon>
+          Profile
+        </h3>
         <v-layout column>
           <ProfileInfo
             v-for="(info, index) in infos"
@@ -28,19 +35,22 @@
             :info="info"
           />
         </v-layout>
-        <h4><v-icon dark size="medium">account_circle</v-icon> Objective</h4>
+        <h3>
+          <v-icon dark size="medium" class="pb-1">fa fa-bullseye</v-icon>
+          Objective
+        </h3>
         <div class="limit">
           <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aliquam
-            animi corporis tempora ut ullam esse eius hic soluta repudiandae
-            sapiente maiores placeat ab necessitatibus, tenetur magni dolores,
-            modi, quibusdam beatae!
+            To develop and contribute to projects that will help improve the
+            world, make more people happy and make life easier. I aim to improve
+            education and write projects to help students. I hope to contribute
+            to the growth of technology in my country. Positive thoughts.
           </p>
         </div>
       </v-flex>
     </v-layout>
-    <v-layout row class="pt-3">
-      <v-flex>
+    <v-layout row wrap class="pt-3">
+      <v-flex xs12 sm6 md4>
         <v-layout column>
           <h1>What i do</h1>
           <h3>Web Development(Front)</h3>
@@ -57,7 +67,7 @@
           <p>VS Code, Android Studio, Eclipse</p>
         </v-layout>
       </v-flex>
-      <v-flex>
+      <v-flex xs12 sm6 md4>
         <v-layout column>
           <h1>Education</h1>
           <h3>Tertiary</h3>
@@ -75,7 +85,7 @@
           <i>(2003)</i>
         </p>
       </v-flex>
-      <v-flex>
+      <v-flex xs12 sm6 md4>
         <v-layout column>
           <h1>Certification</h1>
           <h3>IBM</h3>
@@ -88,27 +98,34 @@
 
 <script>
 import ProfileInfo from '~/components/ProfileInfo'
+import PageHeader from '~/components/PageHeader'
 export default {
   components: {
-    ProfileInfo
+    ProfileInfo,
+    PageHeader
   },
   data() {
     return {
       infos: [
         {
-          icon: 'account_circle',
+          icon: 'fa fa-user',
           title: 'Name',
           value: 'Onwukwe Chinonso Bright'
         },
         {
-          icon: 'account_circle',
-          title: 'Name',
-          value: 'Onwukwe Chinonso Bright'
+          icon: 'fa fa-map-marker-alt',
+          title: 'Address',
+          value: 'Port-Harcourt, Nigeria'
         },
         {
-          icon: 'account_circle',
-          title: 'Name',
-          value: 'Onwukwe Chinonso Bright'
+          icon: 'fa fa-envelope',
+          title: 'Email',
+          value: 'nonybrighto@gmail.com'
+        },
+        {
+          icon: 'fa fa-phone',
+          title: 'Phone No',
+          value: '+(234)8148772181'
         }
       ]
     }
@@ -117,19 +134,18 @@ export default {
 </script>
 <style scoped>
 .border {
-  border-right: 2px solid rgb(140, 140, 221);
+  border-right: 1px solid rgb(114, 114, 129);
   padding: 15px;
 }
 
 .thick {
-  border: 10px solid red;
+  border: 10px solid #292628;
   border-radius: 50%;
 }
 
 .light {
-  padding: 4px;
   border-radius: 50%;
-  border: 2px solid red;
+  border: 2px solid #8b2596;
 }
 
 .limit {

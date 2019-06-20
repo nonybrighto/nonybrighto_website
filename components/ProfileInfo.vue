@@ -1,7 +1,7 @@
 <template>
-  <v-layout row>
-    <v-icon>{{ info.icon }}</v-icon>
-    <span class="pl-1">{{ info.title }}:</span>
+  <v-layout row class="pl-2">
+    <v-icon small>{{ info.icon }}</v-icon>
+    <span class="pl-1 pr-1 font-weight-bold">{{ info.title }}:</span>
     <span>{{ info.value }}</span>
   </v-layout>
 </template>

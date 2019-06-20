@@ -9,22 +9,29 @@
       :mini-variant="mini"
     >
       <v-list>
-        <v-layout v-if="!mini" row justify-end>
+        <!-- <v-layout v-if="!mini" row justify-end>
           <v-btn icon @click.stop="mini = !mini">
             <v-icon>chevron_left</v-icon>
           </v-btn>
-        </v-layout>
+        </v-layout> -->
+        <div v-if="!mini" class="mini-icon">
+          <v-btn icon @click.stop="mini = !mini">
+            <v-icon>chevron_left</v-icon>
+          </v-btn>
+        </div>
         <v-layout v-if="!mini" column align-center>
           <v-avatar color="indigo" size="120px">
-            <v-icon dark>account_circle</v-icon>
+            <img
+              :src="require('~/assets/images/profile_pics.jpg')"
+              alt="nonybrighto"
+            />
           </v-avatar>
           <h2>{{ personalDetails.name }}</h2>
-          <div class="text-xs-center">
-            <span>{{ personalDetails.briefDescription }}</span>
-          </div>
           <v-layout row>
-            <v-btn round dark>HIRE ME</v-btn>
-            <v-btn round dark>MORE</v-btn>
+            <v-btn round dark to="/contact" :color="$vuetify.theme.primary"
+              >HIRE ME</v-btn
+            >
+            <v-btn round dark to="/about">MORE</v-btn>
           </v-layout>
         </v-layout>
         <v-list-tile v-if="mini" @click.stop="mini = !mini">
@@ -35,12 +42,14 @@
         <v-list-tile
           v-for="(item, i) in items"
           :key="i"
-          :to="item.to"
+          :to="item.to ? item.to : false"
+          :href="item.href ? item.href : false"
+          :target="item.href ? '_blank' : false"
           router
           exact
         >
           <v-list-tile-action>
-            <v-icon>{{ item.icon }}</v-icon>
+            <v-icon style="font-size: 18px">{{ item.icon }}</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
             <v-list-tile-title v-text="item.title" />
@@ -48,17 +57,21 @@
         </v-list-tile>
 
         <!-- <h2 class="text-xs-center">Social Accounts</h2>
-    <v-layout row justify-center>
-      <v-btn v-for="social in accounts.social" :key="social.name" icon>
-        <v-icon>{{ social.icon }}</v-icon>
-      </v-btn>
-    </v-layout>
-    <h2 class="text-xs-center">Developer Accounts</h2>
-    <v-layout row justify-center>
-      <v-btn v-for="developer in accounts.developer" :key="developer.name" icon>
-        <v-icon>{{ developer.icon }}</v-icon>
-      </v-btn>
-    </v-layout> -->
+        <v-layout row justify-center>
+          <v-btn v-for="social in accounts.social" :key="social.name" icon>
+            <v-icon>{{ social.icon }}</v-icon>
+          </v-btn>
+        </v-layout>
+        <h2 class="text-xs-center">Developer Accounts</h2>
+        <v-layout row justify-center>
+          <v-btn
+            v-for="developer in accounts.developer"
+            :key="developer.name"
+            icon
+          >
+            <v-icon>{{ developer.icon }}</v-icon>
+          </v-btn>
+        </v-layout> -->
       </v-list>
     </v-navigation-drawer>
     <v-toolbar v-if="showBar" :clipped-left="clipped" fixed app>
@@ -81,32 +94,32 @@ export default {
       isHydrated: false,
       items: [
         {
-          icon: 'apps',
+          icon: 'fa fa-home',
           title: 'Home',
           to: '/'
         },
         {
-          icon: 'bubble_chart',
+          icon: 'fa fa-briefcase',
           title: 'Portfolio',
           to: '/portfolio'
         },
         {
-          icon: 'bubble_chart',
+          icon: 'fa fa-sticky-note',
           title: 'Notes',
           to: '/notes'
         },
         {
-          icon: 'bubble_chart',
+          icon: 'fa fa-info-circle',
           title: 'About',
           to: '/about'
         },
         {
-          icon: 'bubble_chart',
+          icon: 'fa fa-blog',
           title: 'blog',
-          to: '/blog'
+          href: 'https://medium.com/@nonybrighto'
         },
         {
-          icon: 'bubble_chart',
+          icon: 'fa fa-envelope',
           title: 'Contact',
           to: '/contact'
         }
@@ -170,3 +183,11 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.mini-icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+</style>
